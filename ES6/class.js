@@ -1,0 +1,4 @@
+// syntactic sugar
+class Instructor {
+
+}

@@ -3,7 +3,7 @@ const user = {
     name: 'shifa khan',
     job: 'job less'
 }
-console.log(user);
+// console.log(user);
 const stringified = JSON.stringify(user);
 console.log(stringified);
 

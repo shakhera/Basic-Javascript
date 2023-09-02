@@ -8,6 +8,8 @@ loadUser();
 const displayUser = user => {
     const userName = document.getElementById('name');
     const name = user.results[0].name.title + ' ' + user.results[0].name.first + ' ' + user.results[0].name.last;
+    userName.classList.add = 'name';
+
     userName.innerText = name;
     // console.log(user.results[0].name.title + ' ' + user.results[0].name.first + ' ' + user.results[0].name.last);
 

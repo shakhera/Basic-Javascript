@@ -26,7 +26,7 @@ const displayPhones = (phones, dataLimit) => {
     }
     //display phones
     phones.forEach(phone => {
-        console.log(phone);
+        // console.log(phone);
         const phoneDiv = document.createElement('div');
         phoneDiv.classList.add = 'col';
         phoneDiv.innerHTML = `
@@ -36,6 +36,7 @@ const displayPhones = (phones, dataLimit) => {
                 <h5 class="card-title">${phone.phone_name}</h5>
                 <p class="card-text">This is a longer card with supporting text below as a natural
                     lead-in to additional content. This content is a little bit longer.</p>
+                <button onclick="loadPhoneDetails('${phone.slug}')" id="" class="btn btn-primary ms-2" type="button">Details</button>
             </div>
         </div>
         `;
@@ -57,6 +58,15 @@ document.getElementById('btn-search').addEventListener('click', function () {
     //start loader
     searchProcess(10);
 })
+
+//search input enter keyhandler
+document.getElementById('phone-field').addEventListener('keypress', function (event) {
+    // console.log(event.key);
+    if (event.key === 'Enter') {
+        searchProcess(10);
+    }
+})
+
 const toggleSpinner = isLoading => {
     const loaderSpinner = document.getElementById('loader');
     if (isLoading) {
@@ -70,5 +80,12 @@ const toggleSpinner = isLoading => {
 document.getElementById('btn-show-all').addEventListener('click', function () {
     searchProcess();
 })
+const loadPhoneDetails = async id => {
+    // const url = `https://openapi.programming-hero.com/api/phone/apple_iphone_13_pro_max-11089`;
+    const url = `https://openapi.programming-hero.com/api/phone/${id}`;
+    const res = await fetch(url);
+    const data = await res.json();
+    console.log(data.data.name);
+}
 
 // loadPhones();

@@ -109,7 +109,5 @@ const displayPhoneDetails = phone => {
         </P>
         <img src="${phone.image}" class="card-img-top " alt="...">
     `;
-    // <img src="${phone.image}" class="card-img-top" alt="...">
-
 }
 loadPhones('samsung');

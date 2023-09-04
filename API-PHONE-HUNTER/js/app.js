@@ -36,8 +36,9 @@ const displayPhones = (phones, dataLimit) => {
                 <h5 class="card-title">${phone.phone_name}</h5>
                 <p class="card-text">This is a longer card with supporting text below as a natural
                     lead-in to additional content. This content is a little bit longer.</p>
-                <button onclick="loadPhoneDetails('${phone.slug}')" id="" class="btn btn-primary ms-2" type="button">Details</button>
-            </div>
+                <button onclick="loadPhoneDetails('${phone.slug}')" id="" class="btn btn-primary ms-2" type="button" data-bs-toggle="modal" data-bs-target="#phoneDetailModal">Details</button>
+                
+                </div>
         </div>
         `;
         phoneContainer.appendChild(phoneDiv);
@@ -85,7 +86,30 @@ const loadPhoneDetails = async id => {
     const url = `https://openapi.programming-hero.com/api/phone/${id}`;
     const res = await fetch(url);
     const data = await res.json();
-    console.log(data.data.name);
+    displayPhoneDetails(data.data);
 }
 
-// loadPhones();
+const displayPhoneDetails = phone => {
+    console.log(phone);
+    const phoneTitle = document.getElementById('phoneDetailModalLabel');
+    phoneTitle.innerText = phone.name;
+
+    const phoneDetailModalBody = document.getElementById('phoneDetailModalBody');
+    phoneDetailModalBody.innerHTML = `
+        <p>Release Date: ${phone.releaseDate ? phone.releaseDate : "No release date found"}</p>
+        <p>Brand: ${phone.brand}</p>
+        <p>Others
+            <ul>
+                <li>Storage: ${phone.mainFeatures ? phone.mainFeatures.storage : "No storage found"}</li>
+                <li>Memory: ${phone.mainFeatures ? phone.mainFeatures.memory : "No memory found"}</li>
+                <li>Display Size: ${phone.mainFeatures ? phone.mainFeatures.displaySize : "No display found"}</li>
+                <li>Bluetooth: ${phone.others ? phone.others.Bluetooth : 'No Bluetooth'}</li>
+                <li>GPS: ${phone.others ? phone.others.GPS : 'No GPS'}</li>
+            </ul>
+        </P>
+        <img src="${phone.image}" class="card-img-top " alt="...">
+    `;
+    // <img src="${phone.image}" class="card-img-top" alt="...">
+
+}
+loadPhones('samsung');
